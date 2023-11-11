@@ -1,0 +1,30 @@
+<head>
+  <script>
+    function loadVideo() {
+      const url = new URL(window.location.href);
+      const params = new URLSearchParams(url.search);
+      let videoid=params.get('videoid');
+      if (videoid === null || videoid === "") {
+        let warning = document.createElement("p");
+        warning.textContent = "No 'videoid' found";
+        document.getElementsByTagName("body")[0].appendChild(warning);
+        return;
+      }
+      let frame = document.createElement('iframe');
+      frame.width = window.innerWidth;
+      frame.height = window.innerHeight;
+      frame.style = "border: 0px";
+      frame.src = "https://www.youtube-nocookie.com/embed/" + videoid + "?&autoplay=1&mute=1";
+      frame.allow="autoplay; encrypted-media";
+      frame.setAttribute("frameborder", "0");
+      frame.setAttribute("allowfullscreen", "");
+      window.addEventListener("resize", (e) => {
+            frame.width = window.innerWidth;
+            frame.height = window.innerHeight;
+          });
+      document.getElementsByTagName('body')[0].appendChild(frame);
+    }
+    window.addEventListener('load', loadVideo)
+  </script>
+</head>
+<body style="margin: 0px"></body>
